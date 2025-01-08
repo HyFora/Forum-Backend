@@ -1,4 +1,4 @@
-import Category from '../models/categorySearch.js';
+import Category from '../models/categorySearchModel.js';
 
 export const searchCategories = async (req, res) => {
     const { query } = req.query;
@@ -20,3 +20,9 @@ export const searchCategories = async (req, res) => {
     res.status(500).json({ error: 'Interner Serverfehler' });
     }
 };
+
+//Der $or Operator ist ein Logikoperator in MongoDB, der verwendet wird, um Dokumente zu finden, die mindestens eine der angegebenen Bedingungen erfüllen. Es ist vergleichbar mit einer "ODER"-Bedingung in einer SQL-Abfrage
+
+//$regex: Dies ist ein MongoDB-Operator, der reguläre Ausdrücke verwendet, um nach Mustern in Zeichenfolgen zu suchen. In diesem Fall wird query als Suchmuster verwendet.
+
+//$options: 'i': Dies ist eine Option für den regulären Ausdruck, die die Suche case-insensitive (Groß- und Kleinschreibung wird ignoriert) macht.
