@@ -18,18 +18,11 @@ const userSchema = new Schema(
       required: true
     },
     profile: {
-      firstName: String,
+      firstName: { type: String, required: true },
       lastName: String,
       avatar: String,
       bio: String,
-      address: {
-        street1: String,
-        street2: String,
-        city: String,
-        state: String,
-        country: String,
-        zip: String,
-      }
+      
     },
     deleted: {
       type: Boolean,
