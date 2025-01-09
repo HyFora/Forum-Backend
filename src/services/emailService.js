@@ -4,8 +4,8 @@ import 'dotenv/config';
 const transporter = createTransport({
   service: "gmail",
   auth: {
-    user: process.env.DCI_MAIL_ACCOUNT,
-    pass: process.env.DCI_MAIL_NODEMAILER_PASSWORD, 
+    user: process.env.MAIL_ACCOUNT,
+    pass: process.env.MAIL_NODEMAILER_PASSWORD, 
   },
 });
 

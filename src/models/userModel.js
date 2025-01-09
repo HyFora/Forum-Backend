@@ -18,7 +18,7 @@ const userSchema = new Schema(
       required: true
     },
     profile: {
-      firstName: { type: String, required: true },
+      firstName: String,
       lastName: String,
       avatar: String,
       bio: String,
