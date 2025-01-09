@@ -1,4 +1,4 @@
-import { Schema, model } from "mongoose";
+import { Schema, model, Types } from "mongoose";
 
 const threadSchema = new Schema(
   {
@@ -36,6 +36,8 @@ const threadSchema = new Schema(
 
 // Optional: Virtuelle Felder
 // Da Likes sonst mit Array zurückgibt und nicht LikeCount
-threadSchema.virtual("computedLikeCount").get(function () {
-    return this.likes.length;
-  });
+// threadSchema.virtual("computedLikeCount").get(function () {
+//     return this.likes.length;
+//   });
+
+export const Thread = model("Thread", threadSchema);

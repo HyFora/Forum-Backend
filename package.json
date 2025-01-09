@@ -24,7 +24,7 @@
   },
   "contributors": [],
   "scripts": {
-    "dev": "",
+    "server": "nodemon src/server.js",
     "test": ""
   },
   "dependencies": {

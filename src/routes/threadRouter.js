@@ -1,11 +1,18 @@
 import { Router } from "express";
 
+import {
+  // getSingleThread,
+  // getAllThreads,
+  createThread,
+  // changeThisThread,
+  // deleteThread
+} from "../controllers/threadController.js"
+
 const threadRouter = Router();
 
 threadRouter
-    .route("/threads")
-    .get(getAllThreads)
-    .post(PostNewThread);
+    .route("/").post(createThread)
+    // .get(getAllThreads)
 
 // Bevor etwas gepostet wird, 
 // davor authentifizieren, 
@@ -13,9 +20,10 @@ threadRouter
 // threadRouter.use(auth)
 
 threadRouter
-  .route("/threads/:id")
-  .get(getSingleThread)
-  .put(changeThisThread)
-  .delete(deleteThread);
+  .route("/:id")
+  
+  // .get(getSingleThread)
+  // .put(changeThisThread)
+  // .delete(deleteThread);
 
   export default threadRouter;
