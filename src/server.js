@@ -18,6 +18,7 @@ app.use(cors());
 app.use(middleware.log);
 
 app.use("/user", userRouter);
+app.use("/thread", threadSearchRouter);
 
 app.use("*", middleware.invalid);
 
