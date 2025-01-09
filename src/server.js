@@ -1,9 +1,11 @@
-import express from "express";
 import 'dotenv/config';
+
+import express from "express";
 import mongoose from "mongoose";
 import cors from "cors";
 
 import userRouter from "./routes/userRouter.js";
+import categoryRouter from "./routes/categoryRouter.js";
 import { middleware } from "./middlewares/middleware.js";
 import { errorHandler } from "./middlewares/errorHandler.js";
 
@@ -18,6 +20,7 @@ app.use(cors());
 app.use(middleware.log);
 
 app.use("/user", userRouter);
+app.use("/category", categoryRouter);
 
 app.use("*", middleware.invalid);
 
