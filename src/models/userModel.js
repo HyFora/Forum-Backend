@@ -1,4 +1,4 @@
-import { Schema, model } from 'mongoose';
+import { Schema, model, Types } from 'mongoose';
 
 const userSchema = new Schema(
   {
@@ -18,12 +18,17 @@ const userSchema = new Schema(
       required: true
     },
     profile: {
-      firstName: String,
-      lastName: String,
-      avatar: String,
-      bio: String,
-      
+      firstName: { type: String, default: '' },
+      lastName: { type: String, default: '' },
+      avatar: { type: String, default: '' },
+      bio: { type: String, default: '' }
     },
+    threads: [
+      {
+        threadId: { type: Schema.Types.ObjectId, ref: 'Thread' },
+        title: { type: String },
+        date: { type: Date, default: Date.now }
+      }],
     deleted: {
       type: Boolean,
       default: false
