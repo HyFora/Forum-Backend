@@ -1,11 +1,19 @@
 import { Router } from "express";
 
+import {
+  getSingleThread,
+  getAllThreads,
+  postNewThread,
+  changeThisThread,
+  deleteThread
+} from "../controllers/threadController.js"
+
 const threadRouter = Router();
 
 threadRouter
     .route("/threads")
     .get(getAllThreads)
-    .post(PostNewThread);
+    .post(postNewThread);
 
 // Bevor etwas gepostet wird, 
 // davor authentifizieren, 
