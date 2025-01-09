@@ -4,6 +4,7 @@ import mongoose from "mongoose";
 import cors from "cors";
 
 import userRouter from "./routes/userRouter.js";
+import threadRouter from "./routes/threadRouter.js"
 import { middleware } from "./middlewares/middleware.js";
 import { errorHandler } from "./middlewares/errorHandler.js";
 
@@ -18,6 +19,7 @@ app.use(cors());
 app.use(middleware.log);
 
 app.use("/user", userRouter);
+app.use("/threads", threadRouter);
 
 app.use("*", middleware.invalid);
 
