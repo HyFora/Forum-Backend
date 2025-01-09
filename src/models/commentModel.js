@@ -1,11 +1,22 @@
-import mongoose from 'mongoose';
+import { Schema, model, Types } from "mongoose";
 
-const CommentSchema = new mongoose.Schema({
-  threadID: { type: mongoose.Schema.Types.ObjectId, ref: 'Thread', required: true },
-  content: { type: String, required: true, maxlength: 500 },
-  author: { type: mongoose.Schema.Types.ObjectId, ref: 'User', required: true },
-  createdAt: { type: Date, default: Date.now },
-  updatedAt: { type: Date, default: Date.now },
-});
+// Schema für die Kommentare
 
-module.exports = mongoose.model('Comment', CommentSchema);
+const CommentSchema = new Schema(
+  {
+    threadId: { type: Types.ObjectId, ref: "Thread", required: true },
+    author: { type: Types.ObjectId, ref: "User", required: true },
+    content: { type: String, required: true },
+    likes: [
+      {
+        user: { type: Types.ObjectId, ref: "User" },
+        likeAt: { type: Date, default: Date.now },
+      },
+    ],
+    likeCount: { type: Number, default: 0 },
+  },
+  { timestamps: true } // Automatische Verwaltung von `createdAt` und `updatedAt`
+);
+
+// Leichter und lesbarer Export
+export default model("Commentary", CommentSchema);
