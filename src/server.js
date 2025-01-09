@@ -5,7 +5,10 @@ import mongoose from "mongoose";
 import cors from "cors";
 
 import userRouter from "./routes/userRouter.js";
+
 import categoryRouter from "./routes/categoryRouter.js";
+import threadRouter from "./routes/threadRouter.js"
+
 import { middleware } from "./middlewares/middleware.js";
 import { errorHandler } from "./middlewares/errorHandler.js";
 
@@ -20,7 +23,10 @@ app.use(cors());
 app.use(middleware.log);
 
 app.use("/user", userRouter);
+
 app.use("/category", categoryRouter);
+app.use("/threads", threadRouter);
+
 
 app.use("*", middleware.invalid);
 
@@ -41,8 +47,4 @@ mongoose
 mongoose.connection.on(`error`, () => {
   console.error(`Connection with mongoDB: FAILED ⛔:`, error);
 })
-
-// app.listen(PORT, () => {
-//     console.log(`Server is running on port ${PORT}`);
-//     });
 
