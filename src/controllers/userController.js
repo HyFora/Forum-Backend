@@ -72,7 +72,6 @@ export const verifyEmail = async (req, res, next) => {
       if (!user) {
         return res.status(404).json({ message: "User not found or already verified." });
       }
-  
       res.status(200).json({ message: "Email successfully verified." });
     } catch (error) {
       next(error);
@@ -125,23 +124,23 @@ export const updateUserInfo = async (req, res, next) => {
 
 // ================ ADD REVIEW ==================
 // Rezension zum Benutzer hinzufügen
-export const addReviewToUser = async (req, res, next) => {
-    try {
-        const updatedUser = await User.findByIdAndUpdate(
-            req.params.userId,
-            { $push: { reviews: req.body.review } },
-            { new: true, runValidators: true }
-        );
-        if (!updatedUser) {
-            const error = new Error("User not found.");
-            error.status = 404;
-            next(error);
-        }
-        res.json({ message: "Userinfo updated." });
-    } catch (error) {
-        next(error);
-    }
-};
+// export const addReviewToUser = async (req, res, next) => {
+//     try {
+//         const updatedUser = await User.findByIdAndUpdate(
+//             req.params.userId,
+//             { $push: { reviews: req.body.review } },
+//             { new: true, runValidators: true }
+//         );
+//         if (!updatedUser) {
+//             const error = new Error("User not found.");
+//             error.status = 404;
+//             next(error);
+//         }
+//         res.json({ message: "Userinfo updated." });
+//     } catch (error) {
+//         next(error);
+//     }
+// };
 
 // ================ (SOFT-) DELETE ==================
 // Benutzer löschen

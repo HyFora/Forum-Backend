@@ -21,7 +21,7 @@ threadRouter
 // threadRouter.use(auth)
 
 threadRouter
-  .route("/:id")
+  .route("/:threadsId")
   .get(getSingleThread)
   // .put(changeThisThread)
   // .delete(deleteThread);

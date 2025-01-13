@@ -2,6 +2,7 @@ import { Schema, model, Types } from "mongoose";
 
 const threadSchema = new Schema(
   {
+    author: { type: Schema.Types.ObjectId, ref: "User" },
     title: {
       type: String,
       trim: true,
@@ -16,20 +17,23 @@ const threadSchema = new Schema(
       minlength: 2,
       maxlength: 1000,
     },
-    author: { type: Schema.Types.ObjectId, ref: "User" },
-    likes: [{
-      user: {type: Schema.Types.ObjectId, ref: "User"},
-      likeAt: {type: Date, default: Date.now},
-    }],
+    likes: [
+      {
+        user: { type: Schema.Types.ObjectId, ref: "User" },
+        likeAt: { type: Date, default: Date.now },
+      },
+    ],
     likeCount: {
       type: Number,
       default: 0,
     },
-    comments:  [{
-      type: Schema.Types.ObjectId,
-      ref: "Comment",
-      default: [], 
-    }],
+    comments: [
+      {
+        type: Schema.Types.ObjectId,
+        ref: "Comment",
+        default: [],
+      },
+    ],
   },
   { timestamps: true }
 );
