@@ -1,4 +1,4 @@
-import Thread from '../models/Thread.js';
+import Thread from '../models/categorySearchModel.js';
 
 export const filterThreadsByCategory = async (req, res) => {
     const { category } = req.params;
