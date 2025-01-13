@@ -1,8 +1,8 @@
 import { Router } from "express";
 
 import {
-  // getSingleThread,
-  // getAllThreads,
+  getSingleThread,
+  getAllThreads,
   createThread,
   // changeThisThread,
   // deleteThread
@@ -11,8 +11,9 @@ import {
 const threadRouter = Router();
 
 threadRouter
-    .route("/").post(createThread)
-    // .get(getAllThreads)
+    .route("/")
+    .post(createThread)
+    .get(getAllThreads)
 
 // Bevor etwas gepostet wird, 
 // davor authentifizieren, 
@@ -21,8 +22,7 @@ threadRouter
 
 threadRouter
   .route("/:id")
-  
-  // .get(getSingleThread)
+  .get(getSingleThread)
   // .put(changeThisThread)
   // .delete(deleteThread);
 

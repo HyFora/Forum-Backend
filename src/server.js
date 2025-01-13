@@ -6,7 +6,7 @@ import cors from "cors";
 
 import userRouter from "./routes/userRouter.js";
 
-import categoryRouter from "./routes/categoryRouter.js";
+// import {categoryRouter} from "./routes/categoryRouter.js";
 import threadRouter from "./routes/threadRouter.js"
 
 import { middleware } from "./middlewares/middleware.js";
@@ -23,9 +23,9 @@ app.use(cors());
 app.use(middleware.log);
 
 app.use("/user", userRouter);
-app.use("/thread", threadSearchRouter);
+// app.use("/thread", threadSearchRouter);
 
-app.use("/category", categoryRouter);
+// app.use("/category", categoryRouter);
 app.use("/threads", threadRouter);
 
 

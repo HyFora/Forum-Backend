@@ -15,6 +15,16 @@ export const getSingleThread = async (req, res, next)=>{
     }
 }
 
+export const getAllThreads = async (req, res, next)=>{
+    try {
+        const allThreads = await Thread.find().populate("author");
+        res.send(allThreads)
+
+    } catch (error) {
+        next(error)
+    }
+}
+
 export const createThread = async (req, res, next)=>{
     try{
     const thread = new Thread({title: req.body.title, content: req.body.content, author: req.userId, })
@@ -37,6 +47,5 @@ next(error)
 }
 
 
-// getAllThreads,
 // changeThisThread,
 // deleteThread
