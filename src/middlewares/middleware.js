@@ -1,6 +1,14 @@
 const logger = (req, res, next) => {
     console.log(`Request-Method: ${req.method}\nRequest-URL: ${req.originalUrl}`);
-    next();
+   
+   try {
+      const {username, password} = req.body;
+
+      if(username === "admin" && password === "password")
+   } catch (error) {
+    res.status(500).
+    next(error)
+   }
 }
 
 const invalidRoute = (req, res) => {

@@ -26,24 +26,37 @@ export const getAllThreads = async (req, res, next) => {
 
 export const createThread = async (req, res, next) => {
   try {
-    const newThread = new Thread({
-      threadId: threadId,
-      title: savedThread.title,
-      content: savedThread.content,
-      author: savedThread.author,
-    });
-    const thread = new Thread({
-      title: req.body.title,
-      content: req.body.content,
-      author: req.userId,
-    });
-    const savedThread = await thread.save();
-    const user = await User.findById(req.userId); //params?
-    if (!user) {
-      return res.status(404).send({ message: "User not found" });
+    const author = req.params.userId;
+    const { title, content } = req.body;
+    if (!author || !title || !content) {
+      return res
+        .status(400)
+        .json({ message: "Author, Title and Content fields are required" });
     }
-  } catch (error) {
-    next(error);
+    // Validate Author existence
+    const user = await User.findById(author);
+    if (!user) {
+      return res.status(404).json({ message: "User not found" });
+    }
+
+    // Authorizate Author
+    if (user._id.toString() !== req.user._id.toString()) {
+      return res.status(403).json({ message: "Unauthorized to create post" });
+    }
+
+    //Validate Title and Content
+    const maxlength = 10000;
+    if (text.length > maxlength) {
+      return res
+        .status(400)
+        .json({ message: `Text must be less than ${maxlength} characters` });
+    }
+    const newThread = new 'Thread'({ author, title, content });
+    await newThread.save();
+    res.status(201).json({ message: "Thread created successfully", newPost });
+  } catch (err) {
+    res.status(500).json({ message: err.message });
+    next(err)
   }
 };
 

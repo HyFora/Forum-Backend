@@ -26,7 +26,7 @@ app.use("/user", userRouter);
 // app.use("/thread", threadSearchRouter);
 
 // app.use("/category", categoryRouter);
-app.use("/threads", threadRouter);
+app.use("/", threadRouter);
 
 
 app.use("*", middleware.invalid);
