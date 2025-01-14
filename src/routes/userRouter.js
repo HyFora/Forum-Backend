@@ -4,19 +4,15 @@ import {
   signupValidator,
   updateUserValidator,
 } from "../middlewares/userValidator.js";
+// import { addReviewToUser} from "../controllers/userController.js";
 import { validateInputs } from "../middlewares/validator.js";
-import {
-  getAllUsers,
-  getUserById,
-  updateUserInfo,
-  // addReviewToUser,
-  deleteUser,
-  signup,
-  login,
-  verifyEmail,
-} from "../controllers/userController.js";
-
 import { verifyToken } from "../utils/verifyToken.js";
+import { verifyEmail } from "../services/verifyEmail.js";
+import { signup } from "../controllers/userSignupController.js";
+import { login } from "../controllers/userLoginController.js";
+import { getUserById, getAllUsers } from "../controllers/userReadController.js";
+import { updateUser } from "../controllers/userUpdateController.js";
+import { deleteUser } from "../controllers/userDeleteController.js";
 
 const userRouter = express.Router();
 
@@ -31,7 +27,7 @@ userRouter.route("/login").post(login);
 userRouter
   .route("/:userId")
   .get(getUserById)
-  .patch(verifyToken, updateUserInfo, updateUserValidator, validateInputs)
+  .patch(verifyToken, updateUser, updateUserValidator, validateInputs)
   .delete(verifyToken, deleteUser);
 
 // userRouter
