@@ -46,19 +46,26 @@ export const createThread = async (req, res, next) => {
 
     //Validate Title and Content
     const maxlength = 10000;
-    if (text.length > maxlength) {
+    if (content.length > maxlength) {
       return res
         .status(400)
         .json({ message: `Text must be less than ${maxlength} characters` });
     }
-    const newThread = new 'Thread'({ author, title, content });
+
+    const newThread = new Thread({ author, title, content });
     await newThread.save();
-    res.status(201).json({ message: "Thread created successfully", newPost });
+    await User.findByIdAndUpdate(
+      author,
+      { $push: { threads: newThread._id } },  // Add the thread's ID to the threads array
+      { new: true }  // Return the updated user document
+    );
+
+    res.status(201).json({ message: "Thread created successfully", newThread });
   } catch (err) {
     res.status(500).json({ message: err.message });
     next(err)
   }
 };
 
-// changeThisThread,
+// updateThread,
 // deleteThread

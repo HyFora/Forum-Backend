@@ -89,7 +89,7 @@ export const login = async (req, res, next) => {
         // Benutzer in der Datenbank suchen
         const user = await User.findOne({ username });
         if (!user) {
-            return res.status(404).json({ message: "User not found." });
+            return res.status(404).json({ message: "User not found. Please look after mistyping or sign up first!" });
         }
 
         // Passwort vergleichen
