@@ -17,7 +17,8 @@ export const getSingleThread = async (req, res, next) => {
 
 export const getAllThreads = async (req, res, next) => {
   try {
-    const allThreads = await Thread.find().populate("author", "title", "content");
+    const allThreads = await Thread.find().populate("author");
+    console.log(allThreads);
     res.send(allThreads);
   } catch (error) {
     next(error);
@@ -39,7 +40,7 @@ export const createThread = async (req, res, next) => {
       return res.status(404).json({ message: "User not found" });
     }
 
-    // Authorizate Author
+    // Authorize Author
     if (user._id.toString() !== req.user._id.toString()) {
       return res.status(403).json({ message: "Unauthorized to create post" });
     }
@@ -54,34 +55,35 @@ export const createThread = async (req, res, next) => {
 
     const newThread = new Thread({ author, title, content });
     await newThread.save();
+
     await User.findByIdAndUpdate(
       author,
-      { $push: { threads: newThread._id } },  // Add the thread's ID to the threads array
-      { new: true }  // Return the updated user document
+      { $push: { threads: newThread._id } }, // Add the thread's ID to the threads array
+      { new: true } // Return the updated user document
     );
 
     res.status(201).json({ message: "Thread created successfully", newThread });
   } catch (err) {
     res.status(500).json({ message: err.message });
-    next(err)
+    next(err);
   }
 };
 
-
 export const updateThread = async (req, res, next) => {
   try {
-    const { threadId } = req.params;
+    const { userId, threadId } = req.params;
     const { title, content } = req.body;
 
     // Validate Thread Existence
-    const thread = await Thread.findById(threadId);
-    if (!thread) {
-      return res.status(404).json({ message: "Thread not found" });
-    }
+    const updateThread = await Thread.findById(threadId);
 
-    // Authorize Author who wants to update this Thread
-    if (thread.author.toString() !== req.user._id.toString()) {
-      return res.status(403).json({ message: "Unauthorized to update this thread" });
+    if (!updateThread) {
+      return res.status(404).json({ message: "Thread not found" });
+    } // Authorize Author who wants to update this Thread
+    else if (updateThread.author.toString() !== userId) {
+      return res
+        .status(403)
+        .json({ message: "You are not authorized to update this thread." });
     }
 
     // Validate Title and Content
@@ -92,26 +94,27 @@ export const updateThread = async (req, res, next) => {
         .json({ message: `Content must be less than ${maxlength} characters` });
     }
 
-    // Update the thread (only update the fields that are provided in the request body)
-    const updatedThread = await Thread.findByIdAndUpdate(
-      threadId,
-      { $set: { title, content } }, // Update only title and content
-      { new: true } // Return the updated thread
-    );
+    if (title) updateThread.title = title;
+    if (content) updateThread.content = content;
+
+    await updateThread.save();
 
     // If the thread was not updated, handle that case
-    if (!updatedThread) {
+    if (!updateThread) {
       return res.status(404).json({ message: "Thread not found for updating" });
     }
 
     // Return the updated thread
-    res.status(200).json({ message: "Thread updated successfully", updatedThread });
+    res
+      .status(200)
+      .json({ message: "Thread updated successfully", updateThread });
   } catch (err) {
     // Handle errors
     console.error(err);
-    res.status(500).json({ message: err.message });
     next(err);
   }
 };
 
-// deleteThread
+export const deleteThread = (req, res, next)=> {
+  
+}

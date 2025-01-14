@@ -5,6 +5,8 @@ import {
   updateUserValidator,
 } from "../middlewares/userValidator.js";
 import { validateInputs } from "../middlewares/validator.js";
+import { verifyToken } from "../utils/verifyToken.js";
+import { verifyEmail } from "../services/verifyEmail.js";
 import {
   getAllUsers,
   getUserById,
@@ -13,10 +15,7 @@ import {
   deleteUser,
   signup,
   login,
-  verifyEmail,
 } from "../controllers/userController.js";
-
-import { verifyToken } from "../utils/verifyToken.js";
 
 const userRouter = express.Router();
 

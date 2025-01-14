@@ -4,7 +4,7 @@ import {
   getSingleThread,
   getAllThreads,
   createThread,
-  // udpateThread,
+  updateThread,
   // deleteThread
 } from "../controllers/threadController.js"
 import {authMiddleware} from "../middlewares/auth.js"
@@ -18,6 +18,11 @@ threadRouter
 threadRouter
     .route("/threads/:userId/createThread")
     .post(authMiddleware, createThread)
+
+threadRouter
+    .route("/threads/:userId/:threadId/updateThread")
+    .patch(authMiddleware, updateThread)
+    .put(authMiddleware, updateThread)
 
     // Bevor etwas gepostet wird, 
 // davor authentifizieren, 
