@@ -1,6 +1,8 @@
 import { User } from '../models/userModel.js';
 import { hashPassword, comparePasswords } from '../utils/passwordUtils.js';
 import { sendEmail } from "../services/emailService.js";
+import jwt from "jsonwebtoken"
+import 'dotenv/config';
 
 // ================ READ ==================
 // Alle Benutzer abrufen
@@ -96,7 +98,9 @@ export const login = async (req, res, next) => {
             return res.status(401).json({ message: "Wrong password." });
         }
 
-        res.status(200).json({ message: "Login successful." });
+        const token = jwt.sign({ username: user.username, id: user._id }, process.env.JWT_SECRET, { expiresIn: "12h" });
+
+        res.status(200).json({ message: "Login successful.", token: token });
     } catch (error) {
         next(error);
     }
