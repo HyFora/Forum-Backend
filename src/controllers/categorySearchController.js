@@ -1,4 +1,4 @@
-import Category from '../models/categorySearchModel.js';
+import Thread from '../models/threadsSearchModel.js';
 
 export const searchCategories = async (req, res) => {
     const { query } = req.query;
@@ -8,7 +8,7 @@ export const searchCategories = async (req, res) => {
     }
 
     try {
-    const categories = await Category.find({
+    const categories = await Thread.find({
         $or: [
             { name: { $regex: query, $options: 'i' } }, // Suche nach Kategorienamen, die das Suchmuster enthalten
             { description: { $regex: query, $options: 'i' } }, // Suche nach Kategoriebeschreibungen, die das Suchmuster enthalten],
