@@ -1,28 +1,32 @@
 import { Router } from "express";
 
 import {
-  // getSingleThread,
-  // getAllThreads,
+  getSingleThread,
+  getAllThreads,
   createThread,
   // changeThisThread,
   // deleteThread
 } from "../controllers/threadController.js"
+import {authMiddleware} from "../middlewares/auth.js"
 
 const threadRouter = Router();
 
 threadRouter
-    .route("/").post(createThread)
-    // .get(getAllThreads)
+    .route("/threads")
+    .get(getAllThreads)
 
-// Bevor etwas gepostet wird, 
+threadRouter
+    .route("/threads/:userId/createThread")
+    .post(authMiddleware, createThread)
+
+    // Bevor etwas gepostet wird, 
 // davor authentifizieren, 
 // sodass nur autorisierte Personen Inhalten posten dürfen
 // threadRouter.use(auth)
 
 threadRouter
-  .route("/:id")
-  
-  // .get(getSingleThread)
+  .route("/:threadsId")
+  .get(getSingleThread)
   // .put(changeThisThread)
   // .delete(deleteThread);
 

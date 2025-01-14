@@ -6,7 +6,7 @@ import {
     getAllUsers, 
     getUserById, 
     updateUserInfo,
-    addReviewToUser, 
+    // addReviewToUser, 
     deleteUser,
     signup,
     login,
@@ -32,13 +32,13 @@ userRouter
     .post(login);
     
 userRouter
-    .route("/:id")
+    .route("/:userId")
     .get(getUserById)
     .patch(updateUserInfo, updateUserValidator, validateInputs)
     .delete(deleteUser);
 
-userRouter
-    .route("/review/:id")
-    .patch(addReviewToUser);
+// userRouter
+//     .route("/review/:id")
+//     .patch(addReviewToUser);
 
 export default userRouter;

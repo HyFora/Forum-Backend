@@ -1,42 +1,64 @@
-import {Thread} from "../models/threadModel.js"
-import { User } from '../models/userModel.js';
+import { Thread } from "../models/threadModel.js";
+import { User } from "../models/userModel.js";
 
-export const getSingleThread = async (req, res, next)=>{
-    try {
-        const thread = await Thread.findById(req.params.ThreadId)
-        if(!thread){
-            const error = new Error("User not found.");
-            error.status = 404;
-            next(error);
-        }
-        res.json(thread)
-    } catch(error){
-        next(error)
+export const getSingleThread = async (req, res, next) => {
+  try {
+    const thread = await Thread.findById(req.params.threadsId);
+    if (!thread) {
+      const error = new Error("Thread not found.");
+      error.status = 404;
+      next(error);
     }
-}
+    res.json(thread);
+  } catch (error) {
+    next(error);
+  }
+};
 
-export const createThread = async (req, res, next)=>{
-    try{
-    const thread = new Thread({title: req.body.title, content: req.body.content, author: req.userId, })
-    const savedThread = await thread.save();
-    const user = await User.findById(req.userId); //params?
+export const getAllThreads = async (req, res, next) => {
+  try {
+    const allThreads = await Thread.find().populate("author", "title", "content");
+    res.send(allThreads);
+  } catch (error) {
+    next(error);
+  }
+};
+
+export const createThread = async (req, res, next) => {
+  try {
+    const author = req.params.userId;
+    const { title, content } = req.body;
+    if (!author || !title || !content) {
+      return res
+        .status(400)
+        .json({ message: "Author, Title and Content fields are required" });
+    }
+    // Validate Author existence
+    const user = await User.findById(author);
     if (!user) {
-        return res.status(404).send({ message: 'User not found' });
-      }
-    user.threads.push({
-        threadId: savedThread._id,
-        title: savedThread.title,
-        content: savedThread.content,
-        author: savedThread,
-        
-      });
+      return res.status(404).json({ message: "User not found" });
+    }
 
-} catch (error){
-next(error)
-}
-}
+    // Authorizate Author
+    if (user._id.toString() !== req.user._id.toString()) {
+      return res.status(403).json({ message: "Unauthorized to create post" });
+    }
 
+    //Validate Title and Content
+    const maxlength = 10000;
+    if (text.length > maxlength) {
+      return res
+        .status(400)
+        .json({ message: `Text must be less than ${maxlength} characters` });
+    }
+    const newThread = new 'Thread'({ author, title, content });
+    await newThread.save();
+    res.status(201).json({ message: "Thread created successfully", newPost });
+  } catch (err) {
+    res.status(500).json({ message: err.message });
+    next(err)
+  }
+};
 
-// getAllThreads,
 // changeThisThread,
 // deleteThread

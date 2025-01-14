@@ -1,6 +1,8 @@
 import { User } from '../models/userModel.js';
 import { hashPassword, comparePasswords } from '../utils/passwordUtils.js';
 import { sendEmail } from "../services/emailService.js";
+import jwt from "jsonwebtoken"
+import 'dotenv/config';
 
 // ================ READ ==================
 // Alle Benutzer abrufen
@@ -72,7 +74,6 @@ export const verifyEmail = async (req, res, next) => {
       if (!user) {
         return res.status(404).json({ message: "User not found or already verified." });
       }
-  
       res.status(200).json({ message: "Email successfully verified." });
     } catch (error) {
       next(error);
@@ -97,7 +98,9 @@ export const login = async (req, res, next) => {
             return res.status(401).json({ message: "Wrong password." });
         }
 
-        res.status(200).json({ message: "Login successful." });
+        const token = jwt.sign({ username: user.username, id: user._id }, process.env.JWT_SECRET, { expiresIn: "12h" });
+
+        res.status(200).json({ message: "Login successful.", token: token });
     } catch (error) {
         next(error);
     }
@@ -125,23 +128,23 @@ export const updateUserInfo = async (req, res, next) => {
 
 // ================ ADD REVIEW ==================
 // Rezension zum Benutzer hinzufügen
-export const addReviewToUser = async (req, res, next) => {
-    try {
-        const updatedUser = await User.findByIdAndUpdate(
-            req.params.userId,
-            { $push: { reviews: req.body.review } },
-            { new: true, runValidators: true }
-        );
-        if (!updatedUser) {
-            const error = new Error("User not found.");
-            error.status = 404;
-            next(error);
-        }
-        res.json({ message: "Userinfo updated." });
-    } catch (error) {
-        next(error);
-    }
-};
+// export const addReviewToUser = async (req, res, next) => {
+//     try {
+//         const updatedUser = await User.findByIdAndUpdate(
+//             req.params.userId,
+//             { $push: { reviews: req.body.review } },
+//             { new: true, runValidators: true }
+//         );
+//         if (!updatedUser) {
+//             const error = new Error("User not found.");
+//             error.status = 404;
+//             next(error);
+//         }
+//         res.json({ message: "Userinfo updated." });
+//     } catch (error) {
+//         next(error);
+//     }
+// };
 
 // ================ (SOFT-) DELETE ==================
 // Benutzer löschen
