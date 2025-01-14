@@ -4,7 +4,7 @@ import {
   getSingleThread,
   getAllThreads,
   createThread,
-  // changeThisThread,
+  // udpateThread,
   // deleteThread
 } from "../controllers/threadController.js"
 import {authMiddleware} from "../middlewares/auth.js"
@@ -25,7 +25,7 @@ threadRouter
 // threadRouter.use(auth)
 
 threadRouter
-  .route("/:threadsId")
+  .route("/threads/:threadsId")
   .get(getSingleThread)
   // .put(changeThisThread)
   // .delete(deleteThread);
