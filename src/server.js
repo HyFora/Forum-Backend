@@ -1,4 +1,4 @@
-import 'dotenv/config';
+import "dotenv/config";
 
 import express from "express";
 import mongoose from "mongoose";
@@ -7,8 +7,8 @@ import cors from "cors";
 import userRouter from "./routes/userRouter.js";
 
 // import {categoryRouter} from "./routes/categoryRouter.js";
-import threadRouter from "./routes/threadRouter.js"
-
+import threadRouter from "./routes/threadRouter.js";
+// import { router } from "./routes/threadSearchRouter.js";
 import { middleware } from "./middlewares/middleware.js";
 import { errorHandler } from "./middlewares/errorHandler.js";
 
@@ -17,17 +17,16 @@ const PORT = process.env.PORT || 5000;
 const MONGO_DB_URI = process.env.MONGO_DB_URI || "mongodb://localhost:27017";
 
 app.use(express.json());
-app.use(express.urlencoded({extended: true}));
+app.use(express.urlencoded({ extended: true }));
 app.use(cors());
 
 app.use(middleware.log);
 
 app.use("/user", userRouter);
-// app.use("/thread", threadSearchRouter);
+// app.use("/thread", router);
 
 // app.use("/category", categoryRouter);
 app.use("/threads", threadRouter);
-
 
 app.use("*", middleware.invalid);
 
@@ -39,13 +38,12 @@ mongoose
     console.log(`Connection with mongoDB: SUCCESS ✅`);
     app.listen(PORT, () => {
       console.log(`Listening at http://localhost:${PORT}`);
-    })
+    });
   })
-  .catch(error => {
+  .catch((error) => {
     console.error(`Connection with mongoDB: FAILED ⛔`, error);
     process.exit(1);
-  })
+  });
 mongoose.connection.on(`error`, () => {
   console.error(`Connection with mongoDB: FAILED ⛔:`, error);
-})
-
+});

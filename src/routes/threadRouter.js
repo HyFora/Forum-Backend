@@ -7,16 +7,40 @@ import {
 import { createThread } from "../controllers/threadCreateController.js";
 import { updateThread } from "../controllers/threadUpdateController.js";
 import { deleteThread } from "../controllers/threadDeleteController.js";
-import {likeSystem} from "../controllers/likeSystemController.js"
+import { likeSystem } from "../controllers/likeSystemController.js";
 import { authMiddleware } from "../middlewares/auth.js";
+import { searchThreads } from '../controllers/threadSearchController.js';
+// import { searchCategories } from '../controllers/categorySearchController.js';
+// import { filterThreadsByUser } from '../controllers/userSearchController.js';
+// import { sortThreadsByLikes, sortThreadsByDate } from '../controllers/sortSearchController.js';
 
 const threadRouter = Router();
 
+threadRouter
+    .route('/search')
+    .get(searchThreads);
+
+// threadRouter
+//     .route('/category/:category')
+//     .get(searchCategories);
+
+// router
+//     .route('/threads')
+//     .get(filterThreadsByUser);
+
+// router
+//     .route('/threads/sort')
+//     .get(sortThreadsByLikes);
+
+// router
+//     .route('/threads/sort/date')
+//     .get(sortThreadsByDate);
+    
 threadRouter.route("/").get(getAllThreads);
 
 threadRouter.route("/:threadsId").get(getSingleThread);
 
-threadRouter.route("/:threadsId/like").post(likeSystem);
+// threadRouter.route("/:threadsId/like").put(likeSystem);
 
 threadRouter.route("/:userId/createThread").post(authMiddleware, createThread);
 // Bevor etwas gepostet wird,

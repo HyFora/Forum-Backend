@@ -6,27 +6,28 @@ export const likeSystem = async (req, res, next) => {
     const threadId = req.params.threadId;
     const userId = req.params.userId;
 
-    if (!req.userId) return res.json({ message: "Unauthenticated" });
+    if (!userId) return res.json({ message: "Unauthenticated User" });
 
-    //Validate UserId
-    if (!mongoose.Types.ObjectId.isValid(id))
+    // Validate UserId
+    if (!mongoose.Types.ObjectId.isValid(userId))
       return res.status(404).send("No post with that id");
 
-    const thread = await Thread.findById(id);
+    const thread = await Thread.findById(threadId);
 
-    const index = thread.likes.findIndex((id) => id === String(req.userId));
-    console.log(index);
-    if (index === -1) {
-      thread.likes.push(req.userId);
+    // Check if user already liked
+    const userLiked = thread.likes.user.findIndex((id) => id === String(userId));
+   
+    if (userLiked === -1) {
+      thread.likes.push(userId);
     } else {
-      thread.likes = post.likes.filter((id) => id !== String(req.userId));
+      thread.likes = thread.likes.filter((id) => id !== String(userId));
     }
 
-    const updatedPost = await PostMessage.findByIdAndUpdate(id, post, {
+    const updatedThread = await Thread.findByIdAndUpdate(threadId, thread, {
       new: true,
     });
 
-    return res.json(updatedPost);
+    return res.json(updatedThread);
   } catch (error) {
     res.status(500).send({ message: error.message });
   }

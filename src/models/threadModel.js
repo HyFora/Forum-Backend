@@ -1,6 +1,6 @@
 import { Schema, model, Types } from "mongoose";
 
-const threadSchema = new Schema(
+const threadsSchema = new Schema(
   {
     author: { type: Schema.Types.ObjectId, ref: "User" },
     title: {
@@ -44,4 +44,4 @@ const threadSchema = new Schema(
 //     return this.likes.length;
 //   });
 
-export const Thread = model("Thread", threadSchema);
+export const Thread = model("Thread", threadsSchema);
