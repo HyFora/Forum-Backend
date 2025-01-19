@@ -21,7 +21,7 @@ export const createThread = async (req, res, next) => {
         return res.status(403).json({ message: "Unauthorized to create post" });
       }
   
-      //Validate Title and Content
+      // Validate Title and Content
       const maxlength = 10000;
       if (content.length > maxlength) {
         return res

@@ -17,16 +17,16 @@ const threadSchema = new Schema(
       minlength: 2,
      maxlength: 1000,
     },
-    // likes: [
-    //   {
-    //     user: { type: Schema.Types.ObjectId, ref: "User" },
-    //     likeAt: { type: Date, default: Date.now },
-    //   },
-    // ],
-    // likeCount: {
-    //   type: Number,
-    //   default: 0,
-    // },
+    likes: [
+       {
+         user: { type: Schema.Types.ObjectId, ref: "User" },
+         likeAt: { type: Date, default: Date.now },
+       },
+    ],
+    likesCount: {
+      type: Number,
+       default: 0,
+     },
     // comments: [
     //   {
     //     type: Schema.Types.ObjectId,

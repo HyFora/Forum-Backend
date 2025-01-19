@@ -7,7 +7,7 @@ import {
 import { createThread } from "../controllers/threadCreateController.js";
 import { updateThread } from "../controllers/threadUpdateController.js";
 import { deleteThread } from "../controllers/threadDeleteController.js";
-
+import {likeSystem} from "../controllers/likeSystemController.js"
 import { authMiddleware } from "../middlewares/auth.js";
 
 const threadRouter = Router();
@@ -15,6 +15,8 @@ const threadRouter = Router();
 threadRouter.route("/").get(getAllThreads);
 
 threadRouter.route("/:threadsId").get(getSingleThread);
+
+threadRouter.route("/:threadsId/like").post(likeSystem);
 
 threadRouter.route("/:userId/createThread").post(authMiddleware, createThread);
 // Bevor etwas gepostet wird,
