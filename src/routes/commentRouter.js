@@ -1,22 +1,26 @@
 import express from 'express';
 import { createComment, deleteComment, getComments, updateComment, getCommentById } from '../controllers/commentController.js';
 
+import { signupValidator, updateUserValidator } from '../middlewares/userValidator.js';
+
+
+
 export const commentRouter = express.Router();
 
-// Kommentare abrufen
-commentRouter.get('/', getComments);
+commentRouter
+    .route('/') 
+    .get(getComments) // commentar arufen 
+    .post(updateUserValidator, createComment); // kommentar erstellen
 
-// Kommentar erstellen
-commentRouter.post('/', createComment);
+
 
 // Kommentar nach ID abrufen
-commentRouter.get('/:commentId', getCommentById);
+commentRouter
+    .route('/:commentId')
+    .get(getCommentById)
+    .put(updateUserValidator, updateComment)
+    .delete(deleteComment);
 
-// Kommentar aktualisieren
-commentRouter.put('/:commentId', updateComment);
-
-// Kommentar löschen
-commentRouter.delete('/:commentId', deleteComment);
 
 
 // Welchen Pfad soll ich verwenden, um Kommentare zu erstellen?
