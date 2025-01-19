@@ -8,7 +8,7 @@ import { signupValidator, updateUserValidator } from '../middlewares/userValidat
 export const commentRouter = express.Router();
 
 commentRouter
-    .route('/') 
+    .route('/') // wie soll der Pfad aussehen?
     .get(getComments) // commentar arufen 
     .post(updateUserValidator, createComment); // kommentar erstellen
 
