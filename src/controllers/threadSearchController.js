@@ -34,3 +34,4 @@ export const searchThreads = async (req, res) => {
     res.status(500).json({ error: "Interner Serverfehler" });
   }
 };
+
