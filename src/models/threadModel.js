@@ -15,18 +15,23 @@ const threadsSchema = new Schema(
       trim: true,
       required: true,
       minlength: 2,
-     maxlength: 1000,
+      maxlength: 1000,
     },
     likes: [
-       {
-         user: { type: Schema.Types.ObjectId, ref: "User" },
-         likeAt: { type: Date, default: Date.now },
-       },
+      {
+        user: { type: Schema.Types.ObjectId, ref: "User" },
+        likeAt: { type: Date, default: Date.now },
+      },
     ],
     likesCount: {
       type: Number,
-       default: 0,
-     },
+      default: 0,
+    },
+    category: {
+      type: String,
+      required: true,
+      trim: true,
+    },
     // comments: [
     //   {
     //     type: Schema.Types.ObjectId,
