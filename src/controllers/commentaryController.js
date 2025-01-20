@@ -1,9 +1,5 @@
-
-import Commentary from "../models/commentModel.js";
-import {User} from "../models/userModel.js";
-
-
-
+import { Commentary } from "../models/commentModel.js";
+import { User } from "../models/userModel.js";
 
 //* Kommentare erstellen
 
@@ -75,18 +71,16 @@ export const deleteComment = async (req, res, next) => {
   const { commentId } = req.params; // ID des zu löschenden Kommentars
   // threadID und USer ID gegenchecken damit der benutzer nur seine eigenen Kommentare löschen kann
   const author = req.params.userId;
-  
 
-const user = await User.findById(author);
-      if (!user) {
-        return res.status(404).json({ message: "User not found" });
-      }
-  
-      // Authorize Author
-      if (user._id.toString() !== req.user._id.toString()) {
-        return res.status(403).json({ message: "Unauthorized to create post" });
-      }
-  
+  const user = await User.findById(author);
+  if (!user) {
+    return res.status(404).json({ message: "User not found" });
+  }
+
+  // Authorize Author
+  if (user._id.toString() !== req.user._id.toString()) {
+    return res.status(403).json({ message: "Unauthorized to create post" });
+  }
 
   try {
     // Kommentar löschen
@@ -237,11 +231,9 @@ export const editComment = async (req, res, next) => {
 
     // Prüfen, ob der Benutzer der Autor des Kommentars ist
     if (comment.author.toString() !== req.user.id) {
-      return res
-        .status(403)
-        .json({
-          message: "Nicht autorisiert, um diesen Kommentar zu bearbeiten.",
-        });
+      return res.status(403).json({
+        message: "Nicht autorisiert, um diesen Kommentar zu bearbeiten.",
+      });
     }
 
     // Kommentar bearbeiten

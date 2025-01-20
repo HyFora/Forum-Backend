@@ -22,9 +22,9 @@ import { filterThreadsbyUser } from '../controllers/userSearchController.js';
 
 const threadRouter = Router();
 
-threadRouter.route("/search").get(searchThreads);
+threadRouter.route("/:search").get(searchThreads);
 
-threadRouter.route("/category").get(searchCategories);
+threadRouter.route("/:category").get(searchCategories);
 
 threadRouter.route("/filteredThread").get(filterThreadsbyUser);
 
