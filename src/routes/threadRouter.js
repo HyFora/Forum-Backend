@@ -31,4 +31,22 @@ threadRouter
   .route("/:userId/:threadId/deleteThread")
   .delete(authMiddleware, deleteThread);
 
+threadRouter
+      .route('/:userId/:threadsId/comments/:comments') // wie soll der Pfad aussehen?
+      .get(getComments) // commentar arufen 
+      .post(updateUserValidator, createComment); // kommentar erstellen
+  
+  
+  
+  // Kommentar nach ID abrufen
+  threadRouter
+      .route(':userId/:threadsId/comments/:comments/:commentId')
+      .get(getCommentById)
+      .put(updateUserValidator, updateComment)
+      .delete(deleteComment);
+   
+
+
+
+
 export default threadRouter;
