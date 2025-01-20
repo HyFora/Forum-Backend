@@ -55,13 +55,13 @@ threadRouter
   .delete(authMiddleware, deleteThread);
 
 threadRouter
-      .route('/:userId/:threadsId/comments/:comments') // wie soll der Pfad aussehen?
+      .route('/:userId/:threadId/comments')
       .get(getComments) // commentar arufen 
-      .post(createComment); // kommentar erstellen
+      .post(authMiddleware, createComment); // kommentar erstellen
   
   // Kommentar nach ID abrufen
   threadRouter
-      .route(':userId/:threadsId/comments/:comments/:commentId')
+      .route(':userId/:threadId/comments/:comments/:commentId')
       .get(getCommentById)
       .put(editComment)
       .delete(deleteComment);
