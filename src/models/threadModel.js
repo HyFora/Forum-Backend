@@ -1,6 +1,6 @@
 import { Schema, model, Types } from "mongoose";
 
-const threadSchema = new Schema(
+const threadsSchema = new Schema(
   {
     author: { type: Schema.Types.ObjectId, ref: "User" },
     title: {
@@ -15,18 +15,23 @@ const threadSchema = new Schema(
       trim: true,
       required: true,
       minlength: 2,
-     maxlength: 1000,
+      maxlength: 1000,
     },
-    // likes: [
-    //   {
-    //     user: { type: Schema.Types.ObjectId, ref: "User" },
-    //     likeAt: { type: Date, default: Date.now },
-    //   },
-    // ],
-    // likeCount: {
-    //   type: Number,
-    //   default: 0,
-    // },
+    likes: [
+      {
+        user: { type: Schema.Types.ObjectId, ref: "User" },
+        likeAt: { type: Date, default: Date.now },
+      },
+    ],
+    likesCount: {
+      type: Number,
+      default: 0,
+    },
+    category: {
+      type: String,
+      required: true,
+      trim: true,
+    },
     // comments: [
     //   {
     //     type: Schema.Types.ObjectId,
@@ -44,4 +49,4 @@ const threadSchema = new Schema(
 //     return this.likes.length;
 //   });
 
-export const Thread = model("Thread", threadSchema);
+export const Thread = model("Thread", threadsSchema);
