@@ -7,6 +7,7 @@ import {
 import { createThread } from "../controllers/threadCreateController.js";
 import { updateThread } from "../controllers/threadUpdateController.js";
 import { deleteThread } from "../controllers/threadDeleteController.js";
+import { getComments, createComment, getCommentById, editComment, deleteComment } from "../controllers/commentaryController.js";
 
 import { authMiddleware } from "../middlewares/auth.js";
 
@@ -34,7 +35,7 @@ threadRouter
 threadRouter
       .route('/:userId/:threadsId/comments/:comments') // wie soll der Pfad aussehen?
       .get(getComments) // commentar arufen 
-      .post(updateUserValidator, createComment); // kommentar erstellen
+      .post(createComment); // kommentar erstellen
   
   
   
@@ -42,7 +43,7 @@ threadRouter
   threadRouter
       .route(':userId/:threadsId/comments/:comments/:commentId')
       .get(getCommentById)
-      .put(updateUserValidator, updateComment)
+      .put(editComment)
       .delete(deleteComment);
    
 

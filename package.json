@@ -2,7 +2,7 @@
   "name": "",
   "version": "1.0.0",
   "description": "",
-  "main": "index.js",
+  "main": "server.js",
   "type": "module",
   "license": "AGPL-version-3.0",
   "private": false,
@@ -24,7 +24,7 @@
   },
   "contributors": [],
   "scripts": {
-    "server": "nodemon src/server.js",
+    "server": "/src/server.js",
     "test": ""
   },
   "dependencies": {
@@ -35,9 +35,8 @@
     "express-validator": "^7.2.1",
     "jsonwebtoken": "^9.0.2",
     "mongodb": "^6.12.0",
-    "mongoose": "^8.9.3",
+    "mongoose": "^8.9.5",
     "morgan": "^1.10.0",
-    "nodemailer": "^6.9.16",
-    "nodemon": "^3.1.9"
+    "nodemailer": "^6.9.16"
   }
 }
