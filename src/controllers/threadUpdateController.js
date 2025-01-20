@@ -12,7 +12,7 @@ export const updateThread = async (req, res, next) => {
       if (!updateThread) {
         return res.status(404).json({ message: "Thread not found" });
       } // Authorize Author who wants to update this Thread
-      else if (updateThread.author.toString() !== userId) {
+      else if (updateThread.author == userId) {
         return res
           .status(403)
           .json({ message: "You are not authorized to update this thread." });

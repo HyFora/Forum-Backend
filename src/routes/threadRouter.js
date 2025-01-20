@@ -8,7 +8,6 @@ import {
 import { createThread } from "../controllers/threadCreateController.js";
 import { updateThread } from "../controllers/threadUpdateController.js";
 import { deleteThread } from "../controllers/threadDeleteController.js";
-import { getComments, createComment, getCommentById, editComment, deleteComment } from "../controllers/commentaryController.js";
 
 import { likeSystem } from "../controllers/likeSystemController.js";
 //* AUTH
@@ -17,9 +16,15 @@ import { authMiddleware } from "../middlewares/auth.js";
 //* SEARCH & FILTER
 import { searchThreads } from "../controllers/threadSearchController.js";
 import { searchCategories } from "../controllers/categorySearchController.js";
-import { filterThreadsbyUser } from '../controllers/userSearchController.js';
+import { filterThreadsbyUser } from "../controllers/userSearchController.js";
 // import { sortThreadsByLikes, sortThreadsByDate } from '../controllers/sortSearchController.js';
-
+import {
+  getCommentById,
+  editComment,
+  deleteComment
+} from "../controllers/commentaryController.js";
+import { createComment } from "../controllers/commentCreateController.js";
+import {getComments} from "../controllers/commentReadController.js"
 const threadRouter = Router();
 
 threadRouter.route("/search/:search").get(searchThreads);
@@ -55,15 +60,15 @@ threadRouter
   .delete(authMiddleware, deleteThread);
 
 threadRouter
-      .route('/:userId/:threadId/comments')
-      .get(getComments) // commentar arufen 
-      .post(authMiddleware, createComment); // kommentar erstellen
-  
-  // Kommentar nach ID abrufen
-  threadRouter
-      .route(':userId/:threadId/comments/:comments/:commentId')
-      .get(getCommentById)
-      .put(editComment)
-      .delete(deleteComment);
+  .route("/:userId/:threadId/comments")
+  .get(getComments) // commentar arufen
+  .post(authMiddleware, createComment); // kommentar erstellen
+
+// Kommentar nach ID abrufen
+threadRouter
+  .route("/:userId/:threadId/comments/:commentId")
+  .get(getCommentById)
+  .put(editComment)
+  .delete(deleteComment);
 
 export default threadRouter;
