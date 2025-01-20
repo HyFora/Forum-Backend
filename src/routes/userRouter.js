@@ -1,15 +1,17 @@
 import express from "express";
 
+//Middlewares
 import {
   signupValidator,
   updateUserValidator,
 } from "../middlewares/userValidator.js";
-// import { addReviewToUser} from "../controllers/userController.js";
 import { validateInputs } from "../middlewares/validator.js";
-import { verifyToken } from "../utils/verifyToken.js";
-import { verifyEmail } from "../services/verifyEmail.js";
 import { signup } from "../controllers/userSignupController.js";
 import { login } from "../controllers/userLoginController.js";
+//NodeMailer
+import { verifyToken } from "../utils/verifyToken.js";
+import { verifyEmail } from "../services/verifyEmail.js";
+// Controllers
 import { getUserById, getAllUsers } from "../controllers/userReadController.js";
 import { updateUser } from "../controllers/userUpdateController.js";
 import { deleteUser } from "../controllers/userDeleteController.js";

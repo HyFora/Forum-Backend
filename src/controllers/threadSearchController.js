@@ -24,9 +24,13 @@ export const searchThreads = async (req, res) => {
       .populate("comments")  // Lädt die Kommentare
       .exec();
 
-    res.status(200).json({
-      threads: threads,
-    });
+      res.status(200).json({
+        message: threads.length > 1 
+          ? `Here are the threads you were looking for: ${search}` 
+          : `There is only one thread you were looking for: ${search}`,
+        threads: threads,
+      });
+      
   } catch (error) {
     console.error("Fehler bei der Thread-Suche:", error);
     res.status(500).json({ error: "Interner Serverfehler" });

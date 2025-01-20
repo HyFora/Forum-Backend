@@ -22,17 +22,18 @@ import { filterThreadsbyUser } from '../controllers/userSearchController.js';
 
 const threadRouter = Router();
 
-threadRouter.route("/:search").get(searchThreads);
+threadRouter.route("/search/:search").get(searchThreads);
 
-threadRouter.route("/:category").get(searchCategories);
+threadRouter.route("/category/:category").get(searchCategories);
 
-threadRouter.route("/filteredThread").get(filterThreadsbyUser);
+//! funktioniert zwar, aber Threads wird nicht angezeigt..
+threadRouter.route("/user/:userId").get(filterThreadsbyUser);
 
-// router
+// threadRouter
 //     .route('/threads/sort')
 //     .get(sortThreadsByLikes);
 
-// router
+// threadRouter
 //     .route('/threads/sort/date')
 //     .get(sortThreadsByDate);
 
@@ -58,17 +59,11 @@ threadRouter
       .get(getComments) // commentar arufen 
       .post(createComment); // kommentar erstellen
   
-  
-  
   // Kommentar nach ID abrufen
   threadRouter
       .route(':userId/:threadsId/comments/:comments/:commentId')
       .get(getCommentById)
       .put(editComment)
       .delete(deleteComment);
-   
-
-
-
 
 export default threadRouter;
