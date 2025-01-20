@@ -19,4 +19,4 @@ const CommentSchema = new Schema(
 );
 
 // Leichter und lesbarer Export
-export default model("Commentary", CommentSchema);
+export const Commentary = model("Commentary", CommentSchema);

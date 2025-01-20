@@ -1,7 +1,7 @@
-
 import express from "express";
 import dotenv from "dotenv";
 dotenv.config({path: '../.env'});
+
 import mongoose from "mongoose";
 import cors from "cors";
 
@@ -29,10 +29,10 @@ app.use(cors());
 app.use(middleware.log);
 
 app.use("/user", userRouter);
-// app.use("/thread", router);
+app.use("/threads", threadRouter);
 
 // app.use("/category", categoryRouter);
-app.use("/threads", threadRouter);
+
 
 app.use("*", middleware.invalid);
 

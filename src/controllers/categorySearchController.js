@@ -1,25 +1,26 @@
 import { Thread } from "../models/threadModel.js";
 
 export const searchCategories = async (req, res) => {
-  const { query } = req.query;
+  const { category } = req.params;
 
-  if (!query) {
+  if (!category) {
     return res
       .status(400)
-      .json({ error: "Ein Suchbegriff (query) ist erforderlich." });
+      .json({ error: "A search term (category) is required." });
   }
 
   try {
-    const categories = await Thread.find({
-      $or: [
-        { name: { $regex: query, $options: "i" } }, // Suche nach Kategorienamen, die das Suchmuster enthalten
-        { description: { $regex: query, $options: "i" } }, // Suche nach Kategoriebeschreibungen, die das Suchmuster enthalten],
-      ],
+    const threadsCategoried = await Thread.find({
+      category: { $regex: category, $options: "i" },
     });
-    res.json(categories);
+
+    res.status(200).json({
+      message: `Here are the categories you were looking for: ${category}`, // Use 'category' instead of 'search'
+      categories: threadsCategoried,
+    });
   } catch (error) {
-    console.error("Fehler bei der Kategorie-Suche:", error);
-    res.status(500).json({ error: "Interner Serverfehler" });
+    console.error("Error while searching threads:", error);
+    res.status(500).json({ error: "Internal Server Error" });
   }
 };
 

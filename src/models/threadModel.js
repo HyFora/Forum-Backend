@@ -32,13 +32,13 @@ const threadsSchema = new Schema(
       required: true,
       trim: true,
     },
-    // comments: [
-    //   {
-    //     type: Schema.Types.ObjectId,
-    //     ref: "Comment",
-    //     default: [],
-    //   },
-    //],
+    comments: [
+      {
+        type: Schema.Types.ObjectId,
+        ref: "Commentary",
+        default: [],
+      },
+    ],
   },
   { timestamps: true }
 );
@@ -50,3 +50,18 @@ const threadsSchema = new Schema(
 //   });
 
 export const Thread = model("Thread", threadsSchema);
+
+//! von threadSearchModel.js
+// import mongoose from 'mongoose';
+
+// const threadSchema = new mongoose.Schema({
+//     title: { type: String, required: true },
+//     content: { type: String, required: true },
+//     likeCount: { type: Number, default: 0 },
+//     createdAt: { type: Date, default: Date.now },
+//     category: { type: String, required: true },
+//     user: { type: mongoose.Schema.Types.ObjectId, ref: 'User', required: true },
+//   });
+
+// const Thread = mongoose.model('Thread', threadSchema);
+// export default Thread;

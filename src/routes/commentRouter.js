@@ -1,25 +1,25 @@
-import express from 'express';
-import { createComment, deleteComment, getComments, updateComment, getCommentById } from '../controllers/commentController.js';
+// import express from 'express';
+// import { createComment, deleteComment, getComments, updateComment, getCommentById } from '../controllers/commentController.js';
 
-import { signupValidator, updateUserValidator } from '../middlewares/userValidator.js';
-
-
-
-export const commentRouter = express.Router();
-
-commentRouter
-    .route('/') // wie soll der Pfad aussehen?
-    .get(getComments) // commentar arufen 
-    .post(updateUserValidator, createComment); // kommentar erstellen
+// import { signupValidator, updateUserValidator } from '../middlewares/userValidator.js';
 
 
 
-// Kommentar nach ID abrufen
-commentRouter
-    .route('/:commentId')
-    .get(getCommentById)
-    .put(updateUserValidator, updateComment)
-    .delete(deleteComment);
+// export const commentRouter = express.Router();
+
+// commentRouter
+//     .route('/') // wie soll der Pfad aussehen?
+//     .get(getComments) // commentar arufen 
+//     .post(updateUserValidator, createComment); // kommentar erstellen
+
+
+
+// // Kommentar nach ID abrufen
+// commentRouter
+//     .route('/:commentId')
+//     .get(getCommentById)
+//     .put(updateUserValidator, updateComment)
+//     .delete(deleteComment);
 
 
 
