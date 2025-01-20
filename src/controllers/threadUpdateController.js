@@ -4,7 +4,7 @@ import { User } from "../models/userModel.js";
 export const updateThread = async (req, res, next) => {
     try {
       const { userId, threadId } = req.params;
-      const { title, content } = req.body;
+      const { title, content, likes } = req.body;
   
       // Validate Thread Existence
       const updateThread = await Thread.findById(threadId);
@@ -25,13 +25,13 @@ export const updateThread = async (req, res, next) => {
           .status(400)
           .json({ message: `Content must be less than ${maxlength} characters` });
       }
-  
+      // Update one, two or whatever + save
       if (title) updateThread.title = title;
       if (content) updateThread.content = content;
-  
+      // likes, likesCount
       await updateThread.save();
   
-      // If the thread was not updated, handle that case
+      //? If the thread was not updated, handle that case -> nötig?
       if (!updateThread) {
         return res.status(404).json({ message: "Thread not found for updating" });
       }
@@ -41,7 +41,6 @@ export const updateThread = async (req, res, next) => {
         .status(200)
         .json({ message: "Thread updated successfully", updateThread });
     } catch (err) {
-      // Handle errors
       console.error(err);
       next(err);
     }
