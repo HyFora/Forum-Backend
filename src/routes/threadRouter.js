@@ -8,6 +8,7 @@ import {
 import { createThread } from "../controllers/threadCreateController.js";
 import { updateThread } from "../controllers/threadUpdateController.js";
 import { deleteThread } from "../controllers/threadDeleteController.js";
+import { getComments, createComment, getCommentById, editComment, deleteComment } from "../controllers/commentaryController.js";
 
 import { likeSystem } from "../controllers/likeSystemController.js";
 //* AUTH
@@ -51,5 +52,23 @@ threadRouter
 threadRouter
   .route("/:userId/:threadId/deleteThread")
   .delete(authMiddleware, deleteThread);
+
+threadRouter
+      .route('/:userId/:threadsId/comments/:comments') // wie soll der Pfad aussehen?
+      .get(getComments) // commentar arufen 
+      .post(createComment); // kommentar erstellen
+  
+  
+  
+  // Kommentar nach ID abrufen
+  threadRouter
+      .route(':userId/:threadsId/comments/:comments/:commentId')
+      .get(getCommentById)
+      .put(editComment)
+      .delete(deleteComment);
+   
+
+
+
 
 export default threadRouter;
