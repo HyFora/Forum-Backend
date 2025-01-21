@@ -14,22 +14,20 @@ import { likeSystem } from "../controllers/likeSystemController.js";
 import { authMiddleware } from "../middlewares/auth.js";
 
 //* SEARCH & FILTER
-import { searchThreads } from "../controllers/threadSearchController.js";
+import { searchThreadsAndComments } from "../controllers/threadSearchController.js";
 import { searchCategories } from "../controllers/categorySearchController.js";
 import { filterThreadsbyUser } from "../controllers/userSearchController.js";
-// import { sortThreadsByLikes, sortThreadsByDate } from '../controllers/sortSearchController.js';
-import {
-  getCommentById,
-  editComment,
-  deleteComment
-} from "../controllers/commentaryController.js";
+
+import { editComment } from "../controllers/commentEditController.js";
+import { getCommentById } from "../controllers/commentReadController.js";
+import { deleteComment } from "../controllers/commentDeleteController.js";
 import { createComment } from "../controllers/commentCreateController.js";
 import {getComments} from "../controllers/commentReadController.js"
 const threadRouter = Router();
 
-threadRouter.route("/search/:search").get(searchThreads);
+threadRouter.route("/search").get(searchThreadsAndComments);
 
-threadRouter.route("/category/:category").get(searchCategories);
+threadRouter.route("/category").get(searchCategories);
 
 //! funktioniert zwar, aber Threads wird nicht angezeigt..
 threadRouter.route("/user/:userId").get(filterThreadsbyUser);
