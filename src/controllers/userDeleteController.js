@@ -5,7 +5,7 @@ import jwt from "jsonwebtoken"
 import 'dotenv/config';
 
 // ================ (SOFT-) DELETE ==================
-// Benutzer löschen
+
 export const deleteUser = async (req, res, next) => {
     try {
         const user = await User.findById(req.params.userId);
@@ -14,7 +14,7 @@ export const deleteUser = async (req, res, next) => {
             error.status = 404;
             next(error);
         }
-        user.deleted = true; // Als soft deleted markieren
+        user.deleted = true;
         await user.save();
         res.json({ message: "User soft deleted" });
     } catch (error) {

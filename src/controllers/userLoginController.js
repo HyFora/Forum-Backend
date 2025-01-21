@@ -5,17 +5,16 @@ import jwt from "jsonwebtoken"
 import 'dotenv/config';
 
 // ================ LOGIN ==================
-// Benutzer einloggen
+
 export const login = async (req, res, next) => {
     const { username, password } = req.body;
     try {
-        // Benutzer in der Datenbank suchen
+   
         const user = await User.findOne({ username });
         if (!user) {
             return res.status(404).json({ message: "User not found. Please look after mistyping or sign up first!" });
         }
 
-        // Passwort vergleichen
         const passwordMatches = await comparePasswords(password, user.password);
         if (!passwordMatches) {
             return res.status(401).json({ message: "Wrong password." });

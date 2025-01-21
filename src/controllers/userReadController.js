@@ -5,7 +5,6 @@ import jwt from "jsonwebtoken"
 import 'dotenv/config';
 
 // ================ READ ==================
-// Alle Benutzer abrufen
 export const getAllUsers = async (req, res, next) => {
     try {
         res.json(await User.find());
@@ -15,7 +14,6 @@ export const getAllUsers = async (req, res, next) => {
 };
 
 // ================ READ BY ID ==================
-// Benutzer nach ID abrufen
 export const getUserById = async (req, res, next) => {
     try {
         const user = await User.findById(req.params.userId);

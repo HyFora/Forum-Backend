@@ -1,12 +1,11 @@
 import { Thread } from "../models/threadModel.js";
 import { User } from "../models/userModel.js";
-// import { Category } from "../models/categoryModel.js";
-// import { createCategory } from "./categoryController.js";
 
 export const createThread = async (req, res, next) => {
   try {
     const author = req.params.userId;
     const { title, content, category } = req.body;
+    
     if (!title || !content || !category) {
       return res
         .status(400)

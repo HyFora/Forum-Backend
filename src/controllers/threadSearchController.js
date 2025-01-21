@@ -1,4 +1,3 @@
-// import Thread from '../models/threadsSearchModel.js';
 import { Thread } from "../models/threadModel.js";
 import { User } from "../models/userModel.js";
 
@@ -21,7 +20,7 @@ export const searchThreads = async (req, res) => {
         },
       ],
     })
-      .populate("comments")  // Lädt die Kommentare
+      .populate("comments")
       .exec();
 
       res.status(200).json({

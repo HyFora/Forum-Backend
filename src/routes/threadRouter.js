@@ -9,7 +9,18 @@ import { createThread } from "../controllers/threadCreateController.js";
 import { updateThread } from "../controllers/threadUpdateController.js";
 import { deleteThread } from "../controllers/threadDeleteController.js";
 
-import { likeSystem } from "../controllers/likeSystemController.js";
+//* COMMENTARY
+import {
+  getComments,
+  getCommentById,
+} from "../controllers/commentReadController.js";
+import { createComment } from "../controllers/commentCreateController.js";
+import { editComment } from "../controllers/commentEditController.js";
+import { deleteComment } from "../controllers/commentDeleteController.js";
+
+//* LIKE SYSTEM
+// import { likeSystem } from "../controllers/likeSystemController.js";
+
 //* AUTH
 import { authMiddleware } from "../middlewares/auth.js";
 
@@ -17,14 +28,8 @@ import { authMiddleware } from "../middlewares/auth.js";
 import { searchThreads } from "../controllers/threadSearchController.js";
 import { searchCategories } from "../controllers/categorySearchController.js";
 import { filterThreadsbyUser } from "../controllers/userSearchController.js";
-// import { sortThreadsByLikes, sortThreadsByDate } from '../controllers/sortSearchController.js';
-import {
-  getCommentById,
-  editComment,
-  deleteComment
-} from "../controllers/commentaryController.js";
-import { createComment } from "../controllers/commentCreateController.js";
-import {getComments} from "../controllers/commentReadController.js"
+import { sortThreadsByDate } from "../controllers/sortSearchController.js";
+
 const threadRouter = Router();
 
 threadRouter.route("/search/:search").get(searchThreads);
@@ -35,20 +40,27 @@ threadRouter.route("/category/:category").get(searchCategories);
 threadRouter.route("/user/:userId").get(filterThreadsbyUser);
 
 // threadRouter
-//     .route('/threads/sort')
-//     .get(sortThreadsByLikes);
+//   .route('/threads/sort')
+//   .get(sortThreadsByLikes);
 
-// threadRouter
-//     .route('/threads/sort/date')
-//     .get(sortThreadsByDate);
+threadRouter
+  .route("/threads/sort/date")
+  .get(sortThreadsByDate);
 
-threadRouter.route("/").get(getAllThreads);
+threadRouter
+  .route("/")
+  .get(getAllThreads);
 
-threadRouter.route("/:threadsId").get(getSingleThread);
+threadRouter
+  .route("/:threadsId")
+  .get(getSingleThread);
 
-// threadRouter.route("/:threadsId/like").put(likeSystem);
+// threadRouter.route("/:threadsId/:userId/like").put(authMiddleware, likeSystem);
+// threadRouter.route("/:commentId/like").put(authMiddleware, likeSystem);
 
-threadRouter.route("/:userId/createThread").post(authMiddleware, createThread);
+threadRouter
+  .route("/:userId/createThread")
+  .post(authMiddleware, createThread);
 
 threadRouter
   .route("/:userId/:threadId/updateThread")
@@ -61,10 +73,9 @@ threadRouter
 
 threadRouter
   .route("/:userId/:threadId/comments")
-  .get(getComments) // commentar arufen
-  .post(authMiddleware, createComment); // kommentar erstellen
+  .get(getComments) 
+  .post(authMiddleware, createComment); 
 
-// Kommentar nach ID abrufen
 threadRouter
   .route("/:userId/:threadId/comments/:commentId")
   .get(getCommentById)

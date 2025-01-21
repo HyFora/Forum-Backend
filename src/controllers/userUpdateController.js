@@ -6,7 +6,6 @@ import 'dotenv/config';
 
 
 // ================ UPDATE ==================
-// Benutzer aktualisieren
 export const updateUser = async (req, res, next) => {
     try {
         const updatedUser = await User.findByIdAndUpdate(

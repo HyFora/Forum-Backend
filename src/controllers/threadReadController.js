@@ -18,8 +18,11 @@ export const getSingleThread = async (req, res, next) => {
 export const getAllThreads = async (req, res, next) => {
   try {
     const allThreads = await Thread.find().populate("author");
+
     console.log(allThreads);
-    res.send(allThreads);
+
+    res.status(200).send(allThreads);
+
   } catch (error) {
     next(error);
   }

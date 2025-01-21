@@ -5,24 +5,19 @@ import jwt from "jsonwebtoken"
 import 'dotenv/config';
 
 // ================ SIGNUP ==================
-// Benutzer registrieren
 export const signup = async (req, res, next) => {
     const { username, email, password } = req.body;
     try {
-        // Prüfen, ob der Benutzername oder die E-Mail bereits existieren
         const existingUser = await User.findOne({ $or: [{ username }, { email }] });
         if (existingUser) {
             return res.status(400).json({ message: "Username or email already exists." });
         }
 
-        // Passwort hashen
         const hashedPassword = await hashPassword(password);
 
-        // Neuen Benutzer erstellen
         const newUser = new User({ username, email, password: hashedPassword, verified: false });
         await newUser.save();
 
-        // Verifizierungs-E-Mail senden
         const subject = "Email Verification";
         const html = `
           <h1>Welcome, ${username}!</h1>

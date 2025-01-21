@@ -11,7 +11,8 @@ export const updateThread = async (req, res, next) => {
   
       if (!updateThread) {
         return res.status(404).json({ message: "Thread not found" });
-      } // Authorize Author who wants to update this Thread
+      } 
+      // Authorize Author who wants to update this Thread
       else if (updateThread.author == userId) {
         return res
           .status(403)
@@ -28,7 +29,6 @@ export const updateThread = async (req, res, next) => {
       // Update one, two or whatever + save
       if (title) updateThread.title = title;
       if (content) updateThread.content = content;
-      // likes, likesCount
       await updateThread.save();
   
       //? If the thread was not updated, handle that case -> nötig?
